@@ -4,16 +4,15 @@ import SwiftUI
 public struct SnapDrawer<StateType: SnapState, Background : View, Content: View> : View {
     private let calculator: SnapPointCalculator<StateType>
 
-    @Binding
-    private var state: StateType
+    private var state: Binding<StateType>?
 
     private let background: (StateType.Visible) -> Background
     private let content: (StateType.Visible) -> Content
 
     @State
-    private var currentResult: SnapPointCalculator<StateType>.SnapResult = .zero {
+    private var currentResult: SnapPointCalculator<StateType>.SnapResult {
         didSet {
-            state = currentResult.state
+            state?.wrappedValue = currentResult.state
         }
     }
 
@@ -24,22 +23,23 @@ public struct SnapDrawer<StateType: SnapState, Background : View, Content: View>
     private var maxDrag: CGFloat
 
     init(snaps: [SnapPointCalculator<StateType>.Input],
-         state: Binding<StateType>,
+         state: Binding<StateType>?,
          background: @escaping (StateType.Visible) -> Background,
          content: @escaping (StateType.Visible) -> Content) {
 
         self.calculator = SnapPointCalculator(snaps: snaps)
-        self._state = state
+        self.state = state
         self.background = background
         self.content = content
+        self._currentResult = State(initialValue: calculator(state: .large))
         self.minDrag = self.calculator.results.first?.offset ?? 0
         self.maxDrag = self.calculator.results.last?.offset ?? 0
     }
 
     public var body: some View {
-        if currentResult.state != state {
+        if let state = state, currentResult.state != state.wrappedValue {
             DispatchQueue.main.async {
-                self.currentResult = self.calculator(state: state)
+                self.currentResult = self.calculator(state: state.wrappedValue)
             }
         }
 
