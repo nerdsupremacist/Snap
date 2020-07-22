@@ -1,4 +1,4 @@
-![](images/logo.png)
+![](Images/logo.png)
 
 # Snap
 
@@ -8,7 +8,7 @@ This is heavily inspired by [Rideau](https://github.com/muukii/Rideau) and based
 
 Here's a short demo where I reconstructed the Apple Maps UI:
 
-![](images/demo.gif)
+![](Images/demo.gif)
 
 ## Installation
 ### Swift Package Manager
