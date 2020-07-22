@@ -64,14 +64,13 @@ struct SnapPointCalculator<State: SnapState> {
 }
 
 extension SnapPointCalculator {
-
     struct Input {
         let state: State
         let point: SnapPoint
     }
 
     init(snaps: [Input]) {
-        let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero
+        let safeAreaInsets = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.safeAreaInsets ?? .zero
         let deviceHeight = UIScreen.main.bounds.height
 
         let results = snaps.map { input -> SnapResult in

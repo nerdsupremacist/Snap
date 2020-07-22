@@ -20,7 +20,8 @@ public struct SnapDrawer<StateType: SnapState, Background : View, Content: View>
     @GestureState
     private var dragState = DragState.inactive
 
-    private var min: CGFloat
+    private var minDrag: CGFloat
+    private var maxDrag: CGFloat
 
     init(snaps: [SnapPointCalculator<StateType>.Input],
          state: Binding<StateType>,
@@ -31,7 +32,8 @@ public struct SnapDrawer<StateType: SnapState, Background : View, Content: View>
         self._state = state
         self.background = background
         self.content = content
-        self.min = self.calculator(state: .large).offset
+        self.minDrag = self.calculator.results.first?.offset ?? 0
+        self.maxDrag = self.calculator.results.last?.offset ?? 0
     }
 
     public var body: some View {
@@ -63,7 +65,7 @@ public struct SnapDrawer<StateType: SnapState, Background : View, Content: View>
         .frame(height: UIScreen.main.bounds.height)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.9), radius: 10.0)
-        .offset(y: max(min - 8, self.currentResult.offset + self.dragState.translation.height))
+        .offset(y: min(maxDrag + 8, max(minDrag - 8, self.currentResult.offset + self.dragState.translation.height)))
         .animation(self.dragState.isDragging ? nil : .interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0))
         .gesture(drag)
     }

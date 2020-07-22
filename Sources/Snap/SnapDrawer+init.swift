@@ -47,6 +47,50 @@ extension SnapDrawer where StateType == ModalSnapState {
     
 }
 
+extension SnapDrawer where StateType == ModalSnapState, Background == Color {
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                allowInvisible: Bool = true,
+                backgroundColor: Color,
+                @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
+
+        self.init(state: state, large: large, allowInvisible: allowInvisible, background: backgroundColor, content: content)
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                allowInvisible: Bool = true,
+                backgroundColor: Color,
+                @ViewBuilder content: @escaping () -> Content) {
+
+        self.init(state: state, large: large, allowInvisible: allowInvisible, backgroundColor: backgroundColor) { _ in content() }
+    }
+
+
+}
+
+extension SnapDrawer where StateType == ModalSnapState, Background == BlurView {
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                allowInvisible: Bool = true,
+                @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
+
+        self.init(state: state, large: large, allowInvisible: allowInvisible, background: BlurView(), content: content)
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                allowInvisible: Bool = true,
+                @ViewBuilder content: @escaping () -> Content) {
+
+        self.init(state: state, large: large, allowInvisible: allowInvisible) { _ in content() }
+    }
+
+
+}
+
 extension SnapDrawer where StateType == OvercastSnapState {
 
     public init(state: Binding<StateType> = .constant(.large),
@@ -94,6 +138,54 @@ extension SnapDrawer where StateType == OvercastSnapState {
 
         self.init(state: state, large: large, tiny: tiny, allowInvisible: allowInvisible, background: background) { _ in content() }
     }
+
+}
+
+extension SnapDrawer where StateType == OvercastSnapState, Background == Color {
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                backgroundColor: Color,
+                @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
+
+        self.init(state: state, large: large, tiny: tiny, allowInvisible: allowInvisible, background: backgroundColor, content: content)
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                backgroundColor: Color,
+                @ViewBuilder content: @escaping () -> Content) {
+
+        self.init(state: state, large: large, tiny: tiny, allowInvisible: allowInvisible, backgroundColor: backgroundColor) { _ in content() }
+    }
+
+
+}
+
+extension SnapDrawer where StateType == OvercastSnapState, Background == BlurView {
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
+
+        self.init(state: state, large: large, tiny: tiny, allowInvisible: allowInvisible, background: BlurView(), content: content)
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                @ViewBuilder content: @escaping () -> Content) {
+
+        self.init(state: state, large: large, tiny: tiny, allowInvisible: allowInvisible) { _ in content() }
+    }
+
 
 }
 
@@ -149,5 +241,57 @@ extension SnapDrawer where StateType == AppleMapsSnapState {
 
         self.init(state: state, large: large, medium: medium, tiny: tiny, allowInvisible: allowInvisible, background: background) { _ in content() }
     }
+
+}
+
+extension SnapDrawer where StateType == AppleMapsSnapState, Background == Color {
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                medium: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                backgroundColor: Color,
+                @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
+
+        self.init(state: state, large: large, medium: medium, tiny: tiny, allowInvisible: allowInvisible, background: backgroundColor, content: content)
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                medium: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                backgroundColor: Color,
+                @ViewBuilder content: @escaping () -> Content) {
+
+        self.init(state: state, large: large, medium: medium, tiny: tiny, allowInvisible: allowInvisible, backgroundColor: backgroundColor) { _ in content() }
+    }
+
+
+}
+
+extension SnapDrawer where StateType == AppleMapsSnapState, Background == BlurView {
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                medium: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
+
+        self.init(state: state, large: large, medium: medium, tiny: tiny, allowInvisible: allowInvisible, background: BlurView(), content: content)
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                medium: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                @ViewBuilder content: @escaping () -> Content) {
+
+        self.init(state: state, large: large, medium: medium, tiny: tiny, allowInvisible: allowInvisible) { _ in content() }
+    }
+
 
 }
