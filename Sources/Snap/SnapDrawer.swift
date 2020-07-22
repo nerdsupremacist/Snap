@@ -1,28 +1,46 @@
 
 import SwiftUI
 
-public struct SnapDrawer<StateType: SnapState, Content: View> : View {
+public struct SnapDrawer<StateType: SnapState, Background : View, Content: View> : View {
     private let calculator: SnapPointCalculator<StateType>
 
     @Binding
     private var state: StateType
 
+    private let background: (StateType.Visible) -> Background
     private let content: (StateType.Visible) -> Content
 
     @State
-    private var currentResult: SnapPointCalculator<StateType>.SnapResult
+    private var currentResult: SnapPointCalculator<StateType>.SnapResult = .zero {
+        didSet {
+            state = currentResult.state
+        }
+    }
 
     @GestureState
     private var dragState = DragState.inactive
 
-    init(snaps: [SnapPointCalculator<StateType>.Input], state: Binding<StateType>, content: @escaping (StateType.Visible) -> Content) {
+    private var min: CGFloat
+
+    init(snaps: [SnapPointCalculator<StateType>.Input],
+         state: Binding<StateType>,
+         background: @escaping (StateType.Visible) -> Background,
+         content: @escaping (StateType.Visible) -> Content) {
+
         self.calculator = SnapPointCalculator(snaps: snaps)
         self._state = state
+        self.background = background
         self.content = content
-        self._currentResult = State(initialValue: calculator(state: state.wrappedValue))
+        self.min = self.calculator(state: .large).offset
     }
 
     public var body: some View {
+        if currentResult.state != state {
+            DispatchQueue.main.async {
+                self.currentResult = self.calculator(state: state)
+            }
+        }
+
         let drag = DragGesture()
             .updating($dragState) { drag, state, transaction in
                 state = .dragging(translation: drag.translation)
@@ -30,13 +48,15 @@ public struct SnapDrawer<StateType: SnapState, Content: View> : View {
             .onEnded(onDragEnded)
 
         return ZStack {
+            currentResult.state.visible.map { background($0).edgesIgnoringSafeArea(.all) }
+
             VStack {
                 currentResult.state.visible.map { content($0).frame(height: currentResult.contentHeight) }
                 Spacer()
             }
             
             VStack {
-                Handle().padding(.top, 16)
+                currentResult.state.visible != nil ? Handle().padding(.top, 16) : nil
                 Spacer()
             }
         }

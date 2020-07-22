@@ -42,8 +42,12 @@ struct SnapPointCalculator<State: SnapState> {
         let cardTopEdgeLocation = current.offset + drag.translation.height
 
         let matchingRanges = ranges.filter { $0.offsetRange.contains(cardTopEdgeLocation) }
-        guard let range = drag.location.y > 0 ? matchingRanges.last : matchingRanges.first else {
-            return ranges.last?.lower ?? .zero
+        guard let range = drag.translation.height > 0 ? matchingRanges.last : matchingRanges.first else {
+            if drag.translation.height < 0 {
+                return ranges.first?.upper ?? .zero
+            } else {
+                return ranges.last?.lower ?? .zero
+            }
         }
 
         if verticalDirection > 0 {
@@ -74,8 +78,8 @@ extension SnapPointCalculator {
             let offset = input.point.offset(deviceHeight: deviceHeight, safeAreaInsets: safeAreaInsets)
             let contentHeight = deviceHeight - safeAreaInsets.top - safeAreaInsets.bottom - offset
             return SnapResult(state: input.state,
-                       offset: offset,
-                       contentHeight: contentHeight)
+                              offset: offset + safeAreaInsets.bottom,
+                              contentHeight: contentHeight)
         }
 
         self.init(results: results)

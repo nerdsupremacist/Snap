@@ -7,6 +7,7 @@ extension SnapDrawer where StateType == ModalSnapState {
     public init(state: Binding<StateType> = .constant(.large),
                 large: SnapPoint,
                 allowInvisible: Bool = true,
+                @ViewBuilder background: @escaping (StateType.Visible) -> Background,
                 @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
 
         let snaps = [
@@ -14,15 +15,34 @@ extension SnapDrawer where StateType == ModalSnapState {
             allowInvisible ? SnapPointCalculator<StateType>.Input(state: .invisible, point: .height(0)) : nil
         ].compactMap { $0 }
 
-        self.init(snaps: snaps, state: state, content: content)
+        self.init(snaps: snaps, state: state, background: background, content: content)
     }
 
     public init(state: Binding<StateType> = .constant(.large),
                 large: SnapPoint,
                 allowInvisible: Bool = true,
+                @ViewBuilder background: @escaping () -> Background,
                 @ViewBuilder content: @escaping () -> Content) {
 
-        self.init(state: state, large: large, allowInvisible: allowInvisible) { _ in content() }
+        self.init(state: state, large: large, allowInvisible: allowInvisible, background: { _ in background() }) { _ in content() }
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                allowInvisible: Bool = true,
+                background: Background,
+                @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
+
+        self.init(state: state, large: large, allowInvisible: allowInvisible, background: { _ in background }, content: content)
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                allowInvisible: Bool = true,
+                background: Background,
+                @ViewBuilder content: @escaping () -> Content) {
+
+        self.init(state: state, large: large, allowInvisible: allowInvisible, background: background) { _ in content() }
     }
     
 }
@@ -33,6 +53,7 @@ extension SnapDrawer where StateType == OvercastSnapState {
                 large: SnapPoint,
                 tiny: SnapPoint,
                 allowInvisible: Bool = true,
+                @ViewBuilder background: @escaping (StateType.Visible) -> Background,
                 @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
 
         let snaps = [
@@ -41,16 +62,37 @@ extension SnapDrawer where StateType == OvercastSnapState {
             allowInvisible ? SnapPointCalculator<StateType>.Input(state: .invisible, point: .height(0)) : nil
         ].compactMap { $0 }
 
-        self.init(snaps: snaps, state: state, content: content)
+        self.init(snaps: snaps, state: state, background: background, content: content)
     }
 
     public init(state: Binding<StateType> = .constant(.large),
                 large: SnapPoint,
                 tiny: SnapPoint,
                 allowInvisible: Bool = true,
+                @ViewBuilder background: @escaping () -> Background,
                 @ViewBuilder content: @escaping () -> Content) {
 
-        self.init(state: state, large: large, tiny: tiny, allowInvisible: allowInvisible) { _ in content() }
+        self.init(state: state, large: large, tiny: tiny, allowInvisible: allowInvisible, background: { _ in background() }) { _ in content() }
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                background: Background,
+                @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
+
+        self.init(state: state, large: large, tiny: tiny, allowInvisible: allowInvisible, background: { _ in background }, content: content)
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                background: Background,
+                @ViewBuilder content: @escaping () -> Content) {
+
+        self.init(state: state, large: large, tiny: tiny, allowInvisible: allowInvisible, background: background) { _ in content() }
     }
 
 }
@@ -62,6 +104,7 @@ extension SnapDrawer where StateType == AppleMapsSnapState {
                 medium: SnapPoint,
                 tiny: SnapPoint,
                 allowInvisible: Bool = true,
+                @ViewBuilder background: @escaping (StateType.Visible) -> Background,
                 @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
 
         let snaps = [
@@ -71,7 +114,7 @@ extension SnapDrawer where StateType == AppleMapsSnapState {
             allowInvisible ? SnapPointCalculator<StateType>.Input(state: .invisible, point: .height(0)) : nil
         ].compactMap { $0 }
 
-        self.init(snaps: snaps, state: state, content: content)
+        self.init(snaps: snaps, state: state, background: background, content: content)
     }
 
     public init(state: Binding<StateType> = .constant(.large),
@@ -79,9 +122,32 @@ extension SnapDrawer where StateType == AppleMapsSnapState {
                 medium: SnapPoint,
                 tiny: SnapPoint,
                 allowInvisible: Bool = true,
+                @ViewBuilder background: @escaping () -> Background,
                 @ViewBuilder content: @escaping () -> Content) {
 
-        self.init(state: state, large: large, medium: medium, tiny: tiny, allowInvisible: allowInvisible) { _ in content() }
+        self.init(state: state, large: large, medium: medium, tiny: tiny, allowInvisible: allowInvisible, background: { _ in background() }) { _ in content() }
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                medium: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                background: Background,
+                @ViewBuilder content: @escaping (StateType.Visible) -> Content) {
+
+        self.init(state: state, large: large, medium: medium, tiny: tiny, allowInvisible: allowInvisible, background: { _ in background }, content: content)
+    }
+
+    public init(state: Binding<StateType> = .constant(.large),
+                large: SnapPoint,
+                medium: SnapPoint,
+                tiny: SnapPoint,
+                allowInvisible: Bool = true,
+                background: Background,
+                @ViewBuilder content: @escaping () -> Content) {
+
+        self.init(state: state, large: large, medium: medium, tiny: tiny, allowInvisible: allowInvisible, background: background) { _ in content() }
     }
 
 }
