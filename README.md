@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="450" src="https://github.com/nerdsupremacist/Snap/blob/develop/Images/logo.png?raw=true">
+  <img height="350" src="https://github.com/nerdsupremacist/Snap/blob/develop/Images/logo.png?raw=true">
 </p>
 
 # Snap
