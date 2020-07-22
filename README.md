@@ -68,6 +68,10 @@ struct ContentView: View {
 
 Feel free to explore the API yourself and play around with it.
 
+Other features include:
+- Listening to state changes via a `@Binding`
+- Setting a background view
+
 ## Contributions
 Contributions are welcome and encouraged!
 
