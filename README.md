@@ -48,16 +48,16 @@ struct ContentView: View {
 
             SnapDrawer(large: .paddingToTop(24), medium: .fraction(0.4), tiny: .height(100), allowInvisible: false) { state in
                 VStack(alignment: .leading, spacing: 10) {
-						SearchBar()
+                    SearchBar()
 
                     if state != .tiny {
                         Favorites()
-                        	.transition(.scale)
+                            transition(.scale)
                     }
 
                     if state == .large {
-						Recents()
-                        	.transition(.scale)
+                        Recents()
+                            .transition(.scale)
                     }
                 }
             }
