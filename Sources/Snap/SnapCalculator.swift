@@ -77,7 +77,7 @@ extension SnapPointCalculator {
 
         let results = snaps.map { input -> SnapResult in
             let offset = input.point.offset(deviceHeight: deviceHeight, safeAreaInsets: safeAreaInsets)
-            let contentHeight = deviceHeight - safeAreaInsets.top - safeAreaInsets.bottom - offset
+            let contentHeight = deviceHeight - safeAreaInsets.top - safeAreaInsets.bottom - handleThickness - 2 * handleVerticalPadding - offset
             return SnapResult(state: input.state,
                               offset: offset + safeAreaInsets.bottom,
                               contentHeight: contentHeight)
@@ -95,7 +95,7 @@ extension SnapPoint {
         case .fraction(let fraction):
             return deviceHeight * (1 - fraction)
         case .height(let height):
-            let totalHeight = height + safeAreaInsets.top + safeAreaInsets.bottom
+            let totalHeight = height + safeAreaInsets.top + safeAreaInsets.bottom + handleThickness + 2 * handleVerticalPadding
             return deviceHeight - totalHeight
         case .paddingToTop(let offset):
             return offset

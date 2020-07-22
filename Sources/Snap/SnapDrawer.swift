@@ -1,6 +1,9 @@
 
 import SwiftUI
 
+let handleVerticalPadding: CGFloat = 16
+let handleThickness: CGFloat = 5
+
 public struct SnapDrawer<StateType: SnapState, Background : View, Content: View> : View {
     private let calculator: SnapPointCalculator<StateType>
 
@@ -52,13 +55,10 @@ public struct SnapDrawer<StateType: SnapState, Background : View, Content: View>
         return ZStack {
             currentResult.state.visible.map { background($0).edgesIgnoringSafeArea(.all) }
 
-            VStack {
+            VStack(spacing: 0) {
+                currentResult.state.visible != nil ? Handle() : nil
                 currentResult.state.visible.map { content($0).frame(height: currentResult.contentHeight) }
-                Spacer()
-            }
-            
-            VStack {
-                currentResult.state.visible != nil ? Handle().padding(.top, 16) : nil
+                
                 Spacer()
             }
         }
@@ -76,12 +76,11 @@ public struct SnapDrawer<StateType: SnapState, Background : View, Content: View>
 }
 
 struct Handle : View {
-    private let handleThickness = CGFloat(5.0)
     var body: some View {
         RoundedRectangle(cornerRadius: handleThickness / 2.0)
             .frame(width: 40, height: handleThickness)
             .foregroundColor(Color.secondary)
-            .padding(5)
+            .padding(.vertical, handleVerticalPadding)
     }
 }
 
