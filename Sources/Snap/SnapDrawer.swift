@@ -31,7 +31,7 @@ public struct SnapDrawer<StateType: SnapState, Background : View, Content: View>
         self.state = state
         self.background = background
         self.content = content
-        self._currentResult = State(initialValue: calculator(state: .large))
+        self._currentResult = State(initialValue: calculator(state: .largeState))
         self.minDrag = self.calculator.results.first?.offset ?? 0
         self.maxDrag = self.calculator.results.last?.offset ?? 0
     }

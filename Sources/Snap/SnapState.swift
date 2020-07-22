@@ -4,8 +4,10 @@ import Foundation
 public protocol SnapState: Equatable {
     associatedtype Visible
 
-    static var large: Self { get }
-    static var invisible: Self { get }
+    // State postfix was added until we upgrade to Swift 5.3 and get
+    // Enum cases as protocol witnesses
+    static var largeState: Self { get }
+    static var invisibleState: Self { get }
 
     var visible: Visible? { get }
 }
@@ -14,6 +16,9 @@ public enum ModalSnapState: SnapState {
     public enum Visible {
         case large
     }
+
+    public static let largeState: ModalSnapState = .large
+    public static let invisibleState: ModalSnapState = .invisible
 
     case large
     case invisible
@@ -33,6 +38,9 @@ public enum OvercastSnapState: SnapState {
         case large
         case tiny
     }
+    
+    public static let largeState: OvercastSnapState = .large
+    public static let invisibleState: OvercastSnapState = .invisible
 
     case large
     case tiny
@@ -56,6 +64,9 @@ public enum AppleMapsSnapState: SnapState {
         case medium
         case tiny
     }
+
+    public static let largeState: AppleMapsSnapState = .large
+    public static let invisibleState: AppleMapsSnapState = .invisible
 
     case large
     case medium

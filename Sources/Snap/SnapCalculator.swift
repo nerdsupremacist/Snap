@@ -9,7 +9,7 @@ struct SnapPointCalculator<State: SnapState> {
         let contentHeight: CGFloat
 
         static var zero: SnapResult {
-            return SnapResult(state: .invisible, offset: UIScreen.main.bounds.height, contentHeight: 0)
+            return SnapResult(state: .invisibleState, offset: UIScreen.main.bounds.height, contentHeight: 0)
         }
     }
 
@@ -26,6 +26,8 @@ struct SnapPointCalculator<State: SnapState> {
     let results: [SnapResult]
 
     init(results: [SnapResult]) {
+        assert(!results.isEmpty, "Invalid Empty Calculation")
+
         let ranges = results.pairs().map { SnapRange(upper: $0, lower: $1) }
         assert(ranges.allSatisfy { $0.upper.offset < $0.lower.offset }, "Ranges are invalidd")
         self.ranges = ranges
@@ -44,9 +46,9 @@ struct SnapPointCalculator<State: SnapState> {
         let matchingRanges = ranges.filter { $0.offsetRange.contains(cardTopEdgeLocation) }
         guard let range = drag.translation.height > 0 ? matchingRanges.last : matchingRanges.first else {
             if drag.translation.height < 0 {
-                return ranges.first?.upper ?? .zero
+                return results.first!
             } else {
-                return ranges.last?.lower ?? .zero
+                return results.last!
             }
         }
 
