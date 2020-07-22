@@ -4,7 +4,7 @@
 
 # Snap
 
-Customizable Snapping Drawer à la Apple Maps, Apple Music, Stocks, Overcast, etc. completely in SwiftUI. 
+A customizable Snapping Drawer à la Apple Maps, Apple Music, Stocks, Overcast, etc.. 100% in SwiftUI 
 
 This is heavily inspired by [Rideau](https://github.com/muukii/Rideau) and based on this [Gist](https://gist.github.com/mshafer/7e05d0a120810a9eb49d3589ce1f6f40) by [mshafer](https://github.com/mshafer).
 
