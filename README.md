@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="350" style="object-fit: contain; width: 100%;" src="https://github.com/nerdsupremacist/Snap/blob/develop/Images/logo.png?raw=true">
+  <img max-width="500" style="object-fit: contain; width: 100%;" src="https://github.com/nerdsupremacist/Snap/blob/develop/Images/logo.png?raw=true">
 </p>
 
 # Snap
