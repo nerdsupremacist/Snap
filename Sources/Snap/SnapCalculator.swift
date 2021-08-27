@@ -29,7 +29,7 @@ struct SnapPointCalculator<State: SnapState> {
         assert(!results.isEmpty, "Invalid Empty Calculation")
 
         let ranges = results.pairs().map { SnapRange(upper: $0, lower: $1) }
-        assert(ranges.allSatisfy { $0.upper.offset < $0.lower.offset }, "Ranges are invalidd")
+        assert(ranges.allSatisfy { $0.upper.offset < $0.lower.offset }, "Ranges are invalid")
         self.ranges = ranges
         self.results = results
     }
